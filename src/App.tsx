@@ -8,14 +8,17 @@ import ForgotPassword from './modules/auth/ForgotPassword';
 function App() {
   return (
     <Router>
-      <AdminLayout>
-        <Routes>
+      <Routes>
+        <Route element={<AdminLayout />}>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/sign-in" element={<Sigin />} />
-          <Route path="/sign-up" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-        </Routes>
-      </AdminLayout>
+          {/* Add other admin routes here */}
+        </Route>
+
+        {/* Authentication routes without AdminLayout */}
+        <Route path="/sign-in" element={<Sigin />} />
+        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
     </Router>
   );
 }
