@@ -39,7 +39,7 @@ const AdminLayout = ({ children }: any) => {
             <Sidebar isOpen={isOpen} />
             <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpen && window.innerWidth > 991 ? 'ml-60' : ''}`}>
                 <Header isOpen={isOpen} toggleSidebar={toggleSidebar} />
-                <main className="flex-1 p-6 overflow-y-auto bg-white rounded-lg shadow-md">
+                <main className="flex-1 p-3 overflow-y-auto bg-[#f9f9fc]">
                     {children}
                 </main>
                 {overlayVisible && window.innerWidth <= 991 && (

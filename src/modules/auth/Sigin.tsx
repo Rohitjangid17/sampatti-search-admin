@@ -1,8 +1,8 @@
 const Sigin = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <h1>Sigin page</h1>
+    </>
   )
 }
 

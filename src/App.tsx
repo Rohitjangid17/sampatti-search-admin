@@ -1,16 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminLayout from './layout/AdminLayout';
+import Dashboard from './modules/admin/Dashboard';
+import Sigin from './modules/auth/Sigin';
+import Signup from './modules/auth/Signup';
+import ForgotPassword from './modules/auth/ForgotPassword';
 
 function App() {
   return (
-    <>
+    <Router>
       <AdminLayout>
-        <h1 className="text-2xl">Welcome to the Admin Dashboard</h1>
-        {/* Add more components or routes here */}
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/sign-in" element={<Sigin />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
       </AdminLayout>
-    </>
+    </Router>
   );
 }
 

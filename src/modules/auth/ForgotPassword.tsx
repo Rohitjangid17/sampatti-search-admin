@@ -1,8 +1,8 @@
 const ForgotPassword = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            <h1>Forgot Password page</h1>
+        </>
     )
 }
 

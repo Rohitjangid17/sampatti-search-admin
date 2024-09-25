@@ -39,6 +39,10 @@ code {
   /* Adjust this according to your sidebar width */
 }
 
+.custom-shadow {
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .05) !important;
+}
+
 /* App.css */
 
 @media (max-width: 991px) {
@@ -63,10 +67,14 @@ code {
 /* Optional: Responsive adjustments */
 @media (max-width: 991px) {
   .sidebar {
-      width: 0; /* Hidden by default */
-      overflow: hidden; /* Prevent overflow */
+    width: 0;
+    /* Hidden by default */
+    overflow: hidden;
+    /* Prevent overflow */
   }
+
   .sidebar.open {
-      width: 250px; /* Show when open */
+    width: 250px;
+    /* Show when open */
   }
 }
