@@ -15,3 +15,58 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* App.css */
+
+@media (max-width: 768px) {
+  .sidebar {
+    transition: width 0.3s;
+  }
+
+  .sidebar.closed {
+    width: 0;
+  }
+
+  .main {
+    padding-left: 0;
+    /* Remove padding when sidebar is closed */
+  }
+}
+
+/* Optional: Additional styles for main content when sidebar is open */
+.main {
+  padding-left: 60px;
+  /* Adjust this according to your sidebar width */
+}
+
+/* App.css */
+
+@media (max-width: 991px) {
+  .sidebar {
+    width: 0;
+    /* Sidebar is hidden */
+    overflow: hidden;
+    /* Prevent content overflow */
+  }
+
+  .sidebar.open {
+    width: 250px;
+    /* Adjust to your desired width */
+  }
+}
+
+/* Add smooth transitions for sidebar */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Optional: Responsive adjustments */
+@media (max-width: 991px) {
+  .sidebar {
+      width: 0; /* Hidden by default */
+      overflow: hidden; /* Prevent overflow */
+  }
+  .sidebar.open {
+      width: 250px; /* Show when open */
+  }
+}
