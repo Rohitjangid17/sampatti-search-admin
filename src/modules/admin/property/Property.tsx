@@ -83,7 +83,7 @@ const PropertyPage: React.FC = () => {
                 ))}
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default PropertyPage;
