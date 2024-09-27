@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLayout from './layout/AdminLayout';
 import Dashboard from './modules/admin/Dashboard';
 import Sigin from './modules/auth/Sigin';
@@ -7,12 +7,22 @@ import ForgotPassword from './modules/auth/ForgotPassword';
 import Property from './modules/admin/property/Property';
 
 const App = () => {
+  const isAuthenticated: boolean = true;
+
   return (
     <Router>
       <Routes>
+        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/sign-in" />} />
+
         <Route element={<AdminLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/property" element={<Property />} />
+          <Route
+            path="/dashboard"
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/sign-in" />}
+          />
+          <Route
+            path="/property"
+            element={isAuthenticated ? <Property /> : <Navigate to="/sign-in" />}
+          />
         </Route>
 
         {/* Authentication routes without AdminLayout */}
@@ -22,6 +32,6 @@ const App = () => {
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

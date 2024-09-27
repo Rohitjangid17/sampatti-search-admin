@@ -19,7 +19,7 @@ const Sidebar = ({ isOpen }: any) => {
                     <img src={logo} alt="Logo" className={`h-12 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
                 </div>
                 <List>
-                    <Link to="/">
+                    <Link to="/dashboard">
                         <ListItem className='flex items-center gap-x-2 cursor-pointer'>
                             <DashboardOutlinedIcon />
                             <ListItemText primary={isOpen ? "Dashboard" : ""} />

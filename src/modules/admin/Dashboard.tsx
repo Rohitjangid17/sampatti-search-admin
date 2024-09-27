@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const Dashboard = () => {
     useEffect(() => {
-        document.title = "Sampatti Search | Dashboard";
+        document.title = "Sampatti Search | Real Estate Admin Dashboard";
     }, []);
 
     // Static data
