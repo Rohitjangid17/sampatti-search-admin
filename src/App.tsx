@@ -4,14 +4,15 @@ import Dashboard from './modules/admin/Dashboard';
 import Sigin from './modules/auth/Sigin';
 import Signup from './modules/auth/Signup';
 import ForgotPassword from './modules/auth/ForgotPassword';
+import Property from './modules/admin/property/Property';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
         <Route element={<AdminLayout />}>
-          <Route path="/" element={<Dashboard />} />
-          {/* Add other admin routes here */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/property" element={<Property />} />
         </Route>
 
         {/* Authentication routes without AdminLayout */}

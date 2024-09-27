@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -40,7 +41,7 @@ const AdminLayout = ({ children }: any) => {
             <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpen && window.innerWidth > 991 ? 'ml-60' : ''}`}>
                 <Header isOpen={isOpen} toggleSidebar={toggleSidebar} />
                 <main className="flex-1 p-3 overflow-y-auto bg-[#f9f9fc]">
-                    {children}
+                <Outlet />
                 </main>
                 {overlayVisible && window.innerWidth <= 991 && (
                     <div
