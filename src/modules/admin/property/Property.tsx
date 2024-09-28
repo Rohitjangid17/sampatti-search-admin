@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PropertyPage: React.FC = () => {
+const Property: React.FC = () => {
     const [view, setView] = useState<'grid' | 'list'>('grid');
 
     // Static property data
@@ -86,4 +86,4 @@ const PropertyPage: React.FC = () => {
     )
 }
 
-export default PropertyPage;
+export default Property;
