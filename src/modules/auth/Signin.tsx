@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Sigin = () => {
+const Signin = () => {
   useEffect(() => {
     document.title = "Sampatti Search | Sign In - Access Your Real Estate Dashboard";
   }, []);
@@ -9,9 +9,7 @@ const Sigin = () => {
   return (
     <>
       <div className="container mx-auto my-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-11/12 sm:w-4/5 mx-auto border border-solid border-gray-200 bg-white rounded-xl shadow">
-
-          {/* Image Section - Hidden on Small Screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 w-11/12 sm:w-4/5 mx-auto border border-solid border-gray-200 bg-white rounded-xl shadow">
           <div className="hidden md:flex justify-center items-center">
             <img
               src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fHJlYWwlMjBlc3RhdGV8ZW58MHx8fHwxNjc4NzM5NzMz&ixlib=rb-4.0.3&q=80&w=1080"
@@ -20,13 +18,12 @@ const Sigin = () => {
             />
           </div>
 
-          {/* Form Section */}
           <div className="p-6">
             <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800">Sampatti Search</h1>
             <h2 className="text-xl md:text-2xl text-center text-gray-600 mb-4">User Sign In</h2>
             <p className="text-sm md:text-base text-center text-gray-500 mb-6">Sign in to access your account and manage your properties.</p>
 
-            <form className="grid grid-cols-1 gap-6">
+            <form className="grid grid-cols-1">
               <div className="mb-4">
                 <label className="block text-gray-700" htmlFor="email">Email</label>
                 <input className="mt-1 block w-full p-2 border border-gray-300 rounded" type="email" id="email" name="email" required />
@@ -57,4 +54,4 @@ const Sigin = () => {
   );
 }
 
-export default Sigin;
+export default Signin;
