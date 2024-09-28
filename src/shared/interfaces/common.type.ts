@@ -15,3 +15,10 @@ export interface User {
     updatedAt?: Date;
     __v?: number;
 }
+
+export interface AuthContextType {
+    isAuthenticated: boolean;
+    loading: boolean;
+    login: (token: string, user: object) => void;
+    logout: () => void;
+}

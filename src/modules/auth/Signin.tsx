@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../../shared/interfaces/common.type";
 import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
 
 const Signin = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   useEffect(() => {
     document.title = "Sampatti Search | Sign In - Access Your Real Estate Dashboard";
@@ -28,7 +30,10 @@ const Signin = () => {
         console.log(user.data);
         localStorage.setItem("userToken", user.data.token);
         localStorage.setItem("user", JSON.stringify(user.data.user));
-        if (user.data.token) return navigate("/dashboard");
+        if (user.data.token) {
+          login(user.data.token, user.data.user);
+          navigate("/dashboard")
+        }
       }).catch((error) => {
         console.error(error.message);
       });
