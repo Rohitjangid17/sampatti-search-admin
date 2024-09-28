@@ -42,7 +42,7 @@ const Signup = () => {
     axios.post("http://localhost:5000/api/users/signup", user)
       .then(user => {
         console.log(user.data);
-        navigate("/dashboard");
+        navigate("/sign-in");
       }).catch((error) => {
         console.log(error.message);
       });

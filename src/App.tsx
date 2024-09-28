@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AdminLayout from './layout/AdminLayout';
 import Dashboard from './modules/admin/Dashboard';
-import Sigin from './modules/auth/Signin';
+import Signin from './modules/auth/Signin';
 import Signup from './modules/auth/Signup';
 import ForgotPassword from './modules/auth/ForgotPassword';
 import Property from './modules/admin/property/Property';
 
 const App = () => {
-  const isAuthenticated: boolean = false;
+  const isAuthenticated = !!localStorage.getItem("userToken"); // Boolean check for token
 
   return (
     <Router>
@@ -26,9 +26,18 @@ const App = () => {
         </Route>
 
         {/* Authentication routes without AdminLayout */}
-        <Route path="/sign-in" element={<Sigin />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route 
+          path="/sign-in" 
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Signin />} 
+        />
+        <Route 
+          path="/sign-up" 
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Signup />} 
+        />
+        <Route 
+          path="/forgot-password" 
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <ForgotPassword />} 
+        />
       </Routes>
     </Router>
   );

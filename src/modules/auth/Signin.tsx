@@ -1,10 +1,38 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { User } from "../../shared/interfaces/common.type";
+import axios from "axios";
 
 const Signin = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Sampatti Search | Sign In - Access Your Real Estate Dashboard";
   }, []);
+
+  // check form valid or not set form button disable or enable
+  const isFormValid = () => {
+    return (email.trim() !== "" && password.length >= 6);
+  }
+
+  // Login user with token
+  const loginUserWithToken = (event: any) => {
+    event.preventDefault();
+
+    const user: User = { email, password }
+
+    axios.post("http://localhost:5000/api/users/signin", user)
+      .then((user) => {
+        console.log(user.data);
+        localStorage.setItem("userToken", user.data.token);
+        localStorage.setItem("user", JSON.stringify(user.data.user));
+        if (user.data.token) return navigate("/dashboard");
+      }).catch((error) => {
+        console.error(error.message);
+      });
+  }
 
   return (
     <>
@@ -23,18 +51,18 @@ const Signin = () => {
             <h2 className="text-xl md:text-2xl text-center text-gray-600 mb-4">User Sign In</h2>
             <p className="text-sm md:text-base text-center text-gray-500 mb-6">Sign in to access your account and manage your properties.</p>
 
-            <form className="grid grid-cols-1">
+            <form className="grid grid-cols-1" onSubmit={loginUserWithToken}>
               <div className="mb-4">
                 <label className="block text-gray-700" htmlFor="email">Email</label>
-                <input className="mt-1 block w-full p-2 border border-gray-300 rounded" type="email" id="email" name="email" required />
+                <input className="mt-1 block w-full p-2 border border-gray-300 rounded" value={email} onInput={(event: any) => setEmail(event.target.value)} type="email" id="email" name="email" />
               </div>
 
               <div className="mb-4">
                 <label className="block text-gray-700" htmlFor="password">Password</label>
-                <input className="mt-1 block w-full p-2 border border-gray-300 rounded" type="password" id="password" name="password" required />
+                <input className="mt-1 block w-full p-2 border border-gray-300 rounded" minLength={6} value={password} onInput={(event: any) => setPassword(event.target.value)} type="password" id="password" name="password" />
               </div>
 
-              <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded">
+              <button type="submit" disabled={!isFormValid()} className={`w-full ${isFormValid() ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-400"} text-white font-bold py-2 rounded`}>
                 Sign In
               </button>
             </form>
