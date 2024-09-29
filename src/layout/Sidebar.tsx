@@ -8,9 +8,14 @@ import PeopleIcon from '@mui/icons-material/People';
 import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import logo from '../logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ isOpen }: any) => {
+    const location = useLocation();
+
+    const getActiveClass = (path: string) => {
+        return location.pathname === path ? "bg-[#ffffff0f] rounded-lg text-white" : "text-[#eef2f7]";
+    }
 
     return (
         <>
@@ -18,53 +23,55 @@ const Sidebar = ({ isOpen }: any) => {
                 <div className="flex items-center justify-center h-16">
                     <img src={logo} alt="Logo" className={`h-12 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
                 </div>
-                <List>
+                <List className='!px-2'>
                     <Link to="/dashboard">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/dashboard')}`}>
                             <DashboardOutlinedIcon />
                             <ListItemText primary={isOpen ? "Dashboard" : ""} />
                         </ListItem>
                     </Link>
                     <Link to="/property">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/property')}`}>
                             <HomeWorkOutlinedIcon />
                             <ListItemText primary={isOpen ? "Property" : ""} />
                         </ListItem>
                     </Link>
-                    <Link to="">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                    <Link to="/agents">
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/agents')}`}>
                             <PeopleOutlineOutlinedIcon />
                             <ListItemText primary={isOpen ? "Agents" : ""} />
                         </ListItem>
                     </Link>
-                    <Link to="">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                    <Link to="/customers">
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/customers')}`}>
                             <ContactPageOutlinedIcon />
                             <ListItemText primary={isOpen ? "Customers" : ""} />
                         </ListItem>
                     </Link>
-                    <Link to="">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                    <Link to="/orders">
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/orders')}`}>
                             <MapsHomeWorkOutlinedIcon />
                             <ListItemText primary={isOpen ? "Orders" : ""} />
                         </ListItem>
                     </Link>
-                    <Link to="">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                    <Link to="/reviews">
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/reviews')}`}>
                             <PeopleIcon />
                             <ListItemText primary={isOpen ? "Reviews" : ""} />
                         </ListItem>
                     </Link>
-                    <Link to="">
-                        <ListItem className='flex items-center gap-x-2 cursor-pointer'>
+                    <Link to="/blog">
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/blog')}`}>
                             <ReviewsOutlinedIcon />
                             <ListItemText primary={isOpen ? "Blog" : ""} />
                         </ListItem>
                     </Link>
-                    <ListItem className='flex items-center gap-x-2 cursor-pointer'>
-                        <SettingsIcon />
-                        <ListItemText primary={isOpen ? "Settings" : ""} />
-                    </ListItem>
+                    <Link to="/settings">
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/settings')}`}>
+                            <SettingsIcon />
+                            <ListItemText primary={isOpen ? "Settings" : ""} />
+                        </ListItem>
+                    </Link>
                 </List>
 
                 <Divider sx={{ my: 2 }} />
