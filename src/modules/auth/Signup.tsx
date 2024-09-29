@@ -39,7 +39,7 @@ const Signup = () => {
 
     console.log("user created", user);
 
-    axios.post("http://localhost:5000/api/users/signup", user)
+    axios.post("https://sampatti-search-api.vercel.app/api/users/signup", user)
       .then(user => {
         console.log(user.data);
         navigate("/sign-in");

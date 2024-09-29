@@ -95,7 +95,7 @@ const Settings = () => {
 
         try {
             // Convert Blob URL to a file object for backend if necessary
-            const response = await axios.put(`http://localhost:5000/api/users/settings/${userId}`, userData);
+            const response = await axios.put(`https://sampatti-search-api.vercel.app/api/users/settings/${userId}`, userData);
             console.log(response);
 
             // Assuming the response returns the updated user data, set the image

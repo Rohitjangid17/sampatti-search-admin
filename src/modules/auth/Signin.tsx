@@ -25,7 +25,7 @@ const Signin = () => {
 
     const user: User = { email, password }
 
-    axios.post("http://localhost:5000/api/users/signin", user)
+    axios.post("https://sampatti-search-api.vercel.app/api/users/signin", user)
       .then((user) => {
         console.log(user.data);
         localStorage.setItem("userToken", user.data.token);
