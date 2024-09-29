@@ -57,7 +57,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className="p-6 bg-gray-50 min-h-screen">
+            <div className="p-6 min-h-screen">
                 {/* Welcome Section */}
                 <div className="mb-6">
                     <h1 className="text-4xl font-bold text-gray-800">Welcome Back, Admin!</h1>

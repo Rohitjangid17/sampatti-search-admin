@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 const Header = ({ isOpen, toggleSidebar }:any) => {
     return (
         <AppBar position="static" className="!bg-white border-b border-solid border-[#eaedf1] custom-shadow">
-            <Toolbar>
+            <Toolbar className="!px-4">
                 <IconButton className='text-black' edge="start" onClick={toggleSidebar}>
                     {isOpen ? <MenuIcon /> : <MenuIcon />}
                 </IconButton>

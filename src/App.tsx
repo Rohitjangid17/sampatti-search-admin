@@ -33,8 +33,8 @@ const AppRoutes = () => {
       <Route path="/sign-up" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Signup />} />
       <Route path="/forgot-password" element={isAuthenticated ? <Navigate to="/dashboard" /> : <ForgotPassword />} />
     </Routes>
-  )
-}
+  );
+};
 
 const App = () => (
   <AuthProvider>
@@ -42,6 +42,6 @@ const App = () => (
       <AppRoutes />
     </Router>
   </AuthProvider>
-)
+);
 
 export default App;

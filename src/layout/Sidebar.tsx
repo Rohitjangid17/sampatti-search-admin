@@ -23,7 +23,7 @@ const Sidebar = ({ isOpen }: any) => {
                 <div className="flex items-center justify-center h-16">
                     <img src={logo} alt="Logo" className={`h-12 transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
                 </div>
-                <List className='!px-2'>
+                <List className='!px-2 overflow-y-auto'>
                     <Link to="/dashboard">
                         <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/dashboard')}`}>
                             <DashboardOutlinedIcon />
