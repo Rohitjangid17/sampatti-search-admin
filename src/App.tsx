@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Dashboard from './modules/admin/Dashboard';
+import Dashboard from './modules/admin/dashboard/Dashboard';
 import Signin from './modules/auth/Signin';
 import Signup from './modules/auth/Signup';
 import ForgotPassword from './modules/auth/ForgotPassword';
