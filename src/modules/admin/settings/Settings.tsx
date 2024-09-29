@@ -28,7 +28,7 @@ const Settings = () => {
 
     const getUserById = (userId: string) => {
         setUserId(userId);
-        axios.get(`http://localhost:5000/api/users/${userId}`)
+        axios.get(`https://sampatti-search-api.vercel.app/api/users/${userId}`)
             .then(res => {
                 setUserData(res.data);
                 // Check if there's a profile picture URL to set the image
