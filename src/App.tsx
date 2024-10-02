@@ -12,6 +12,7 @@ import Reviews from './modules/admin/reviews/Reviews';
 import Orders from './modules/admin/orders/Orders';
 import Agents from './modules/admin/agents/Agents';
 import Customers from './modules/admin/customers/Customers';
+import AddNewAgent from './modules/admin/agents/AddNewAgent';
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/sign-in" />} />
         <Route path="/property" element={isAuthenticated ? <Property /> : <Navigate to="/sign-in" />} />
         <Route path="/agents" element={isAuthenticated ? <Agents /> : <Navigate to="/sign-in" />} />
+        <Route path="/add-new-agent" element={isAuthenticated ? <AddNewAgent /> : <Navigate to="/sign-in" />} />
         <Route path="/customers" element={isAuthenticated ? <Customers /> : <Navigate to="/sign-in" />} />
         <Route path="/orders" element={isAuthenticated ? <Orders /> : <Navigate to="/sign-in" />} />
         <Route path="/reviews" element={isAuthenticated ? <Reviews /> : <Navigate to="/sign-in" />} />

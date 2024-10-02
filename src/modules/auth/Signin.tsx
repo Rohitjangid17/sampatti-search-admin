@@ -30,6 +30,8 @@ const Signin = () => {
         console.log(user.data);
         localStorage.setItem("userToken", user.data.token);
         localStorage.setItem("user", JSON.stringify(user.data.user));
+        axios.defaults.headers.common['Authorization'] = `Bearer ${user.data.token}`;
+        console.log(axios.defaults.headers.common['Authorization']);        
         if (user.data.token) {
           login(user.data.token, user.data.user);
           navigate("/dashboard")

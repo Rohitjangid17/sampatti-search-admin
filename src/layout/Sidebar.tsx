@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen }: any) => {
                         </ListItem>
                     </Link>
                     <Link to="/agents">
-                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/agents')}`}>
+                        <ListItem className={`flex items-center gap-x-2 cursor-pointer ${getActiveClass('/agents' || '/add-new-agent')}`}>
                             <PeopleOutlineOutlinedIcon />
                             <ListItemText primary={isOpen ? "Agents" : ""} />
                         </ListItem>
