@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  background-color: #f9f9fc !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -15,6 +19,36 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.file-upload-button {
+  border: 2px solid #5d7186;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.image-content {
+  overflow: hidden !important;
+}
+
+.image-box-card:hover .image-content {
+  -webkit-filter: brightness(50%);
+}
+
+.delete-mat-icon {
+  display: none !important;
+}
+
+.image-box-card:hover .delete-mat-icon {
+  display: block !important;
+}
 
 @media (max-width: 768px) {
   .sidebar {
