@@ -16,14 +16,34 @@ const AddNewAgent = () => {
     const [facebook, setFacebook] = useState<string>("");
     const [instagram, setInstagram] = useState<string>("");
     const [twitter, setTwitter] = useState<string>("");
+    const [image, setImage] = useState<File | null>(null);
 
     const navigate = useNavigate();
 
-    // create new agent
-    const createNewAgent = (event: any) => {
+    // Function to convert image to base64
+    const toBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = error => reject(error);
+        });
+    };
+
+    // Create new agent
+    const createNewAgent = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const agentData: any = {
+        let imageBase64 = "";
+        if (image) {
+            imageBase64 = await toBase64(image);
+        }
+
+        const agentData = {
+            name,
+            email,
+            mobileNumber,
+            propertiesNumber,
             address: {
                 location,
                 street,
@@ -36,21 +56,15 @@ const AddNewAgent = () => {
                 instagram,
                 twitter
             },
-            images: "https://techzaa.getappui.com/lahomes/admin/assets/images/users/avatar-2.jpg",
-            name,
-            email,
-            mobileNumber,
-            propertiesNumber
-        }
-
-        console.log(agentData);
+            image: imageBase64
+        };
 
         axios.post("https://sampatti-search-api.vercel.app/api/agents", agentData)
             .then((agent) => {
                 alert(agent.data.message);
                 navigate("/agents");
             }).catch(error => console.log(error.message));
-    }
+    };
 
     return (
         <>
@@ -61,25 +75,25 @@ const AddNewAgent = () => {
                 <form className="space-y-4" onSubmit={createNewAgent}>
                     <div>
                         <label htmlFor="agentName" className="block text-sm font-medium text-gray-700">Agent Name</label>
-                        <input id="agentName" value={name} onInput={(event: any) => setName(event.target.value)} name="agentName" placeholder="Enter agent name" required
+                        <input id="agentName" value={name} onChange={(event) => setName(event.target.value)} name="agentName" placeholder="Enter agent name" required
                             className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
 
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input id="email" value={email} onInput={(event: any) => setEmail(event.target.value)} name="email" placeholder="Enter email" type="email" required
+                        <input id="email" value={email} onChange={(event) => setEmail(event.target.value)} name="email" placeholder="Enter email" type="email" required
                             className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
 
                     <div>
                         <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700">Mobile Number</label>
-                        <input id="mobileNumber" value={mobileNumber} onInput={(event: any) => setMobileNumber(event.target.value)} name="mobileNumber" placeholder="Enter mobile number" required
+                        <input id="mobileNumber" value={mobileNumber} onChange={(event) => setMobileNumber(event.target.value)} name="mobileNumber" placeholder="Enter mobile number" required
                             className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
 
                     <div>
                         <label htmlFor="propertiesNumber" className="block text-sm font-medium text-gray-700">Number of Properties</label>
-                        <input id="propertiesNumber" value={propertiesNumber} onInput={(event: any) => setPropertiesNumber(event.target.value)} name="propertiesNumber" placeholder="Enter number of properties" type="number" required
+                        <input id="propertiesNumber" value={propertiesNumber} onChange={(event) => setPropertiesNumber(Number(event.target.value))} name="propertiesNumber" placeholder="Enter number of properties" type="number" required
                             className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
 
@@ -87,27 +101,27 @@ const AddNewAgent = () => {
                         <legend className="text-sm font-medium text-gray-700">Address</legend>
                         <div>
                             <label htmlFor="addressLocation" className="block text-sm font-medium text-gray-700">Location</label>
-                            <input id="addressLocation" value={location} onInput={(event: any) => setLocation(event.target.value)} name="address.location" placeholder="Enter location" required
+                            <input id="addressLocation" value={location} onChange={(event) => setLocation(event.target.value)} name="address.location" placeholder="Enter location" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                         <div>
                             <label htmlFor="addressStreet" className="block text-sm font-medium text-gray-700">Street</label>
-                            <input id="addressStreet" value={street} onInput={(event: any) => setStreet(event.target.value)} name="address.street" placeholder="Enter street" required
+                            <input id="addressStreet" value={street} onChange={(event) => setStreet(event.target.value)} name="address.street" placeholder="Enter street" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                         <div>
                             <label htmlFor="addressZipCode" className="block text-sm font-medium text-gray-700">Zip Code</label>
-                            <input id="addressZipCode" value={zipCode} onInput={(event: any) => setZipCode(event.target.value)} name="address.zipCode" placeholder="Enter zip code" required
+                            <input id="addressZipCode" value={zipCode} onChange={(event) => setZipCode(event.target.value)} name="address.zipCode" placeholder="Enter zip code" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                         <div>
                             <label htmlFor="addressCity" className="block text-sm font-medium text-gray-700">City</label>
-                            <input id="addressCity" value={city} onInput={(event: any) => setCity(event.target.value)} name="address.city" placeholder="Enter city" required
+                            <input id="addressCity" value={city} onChange={(event) => setCity(event.target.value)} name="address.city" placeholder="Enter city" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                         <div>
                             <label htmlFor="addressCountry" className="block text-sm font-medium text-gray-700">Country</label>
-                            <input id="addressCountry" value={country} onInput={(event: any) => setCountry(event.target.value)} name="address.country" placeholder="Enter country" required
+                            <input id="addressCountry" value={country} onChange={(event) => setCountry(event.target.value)} name="address.country" placeholder="Enter country" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                     </fieldset>
@@ -116,20 +130,25 @@ const AddNewAgent = () => {
                         <legend className="text-sm font-medium text-gray-700">Social Media Links</legend>
                         <div>
                             <label htmlFor="facebook" className="block text-sm font-medium text-gray-700">Facebook URL</label>
-                            <input id="facebook" value={facebook} onInput={(event: any) => setFacebook(event.target.value)} name="socialMediaUrl.facebook" placeholder="Enter Facebook URL" required
+                            <input id="facebook" value={facebook} onChange={(event) => setFacebook(event.target.value)} name="socialMediaUrl.facebook" placeholder="Enter Facebook URL" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                         <div>
                             <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">Instagram URL</label>
-                            <input id="instagram" value={instagram} onInput={(event: any) => setInstagram(event.target.value)} name="socialMediaUrl.instagram" placeholder="Enter Instagram URL" required
+                            <input id="instagram" value={instagram} onChange={(event) => setInstagram(event.target.value)} name="socialMediaUrl.instagram" placeholder="Enter Instagram URL" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                         <div>
                             <label htmlFor="twitter" className="block text-sm font-medium text-gray-700">Twitter URL</label>
-                            <input id="twitter" value={twitter} onInput={(event: any) => setTwitter(event.target.value)} name="socialMediaUrl.twitter" placeholder="Enter Twitter URL" required
+                            <input id="twitter" value={twitter} onChange={(event) => setTwitter(event.target.value)} name="socialMediaUrl.twitter" placeholder="Enter Twitter URL" required
                                 className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
                     </fieldset>
+
+                    <div>
+                        <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Image</label>
+                        <input id="image" type="file" accept="image/*" onChange={(event) => setImage(event.target.files?.[0] || null)} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+                    </div>
 
                     <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
                         Add Agent
@@ -137,7 +156,7 @@ const AddNewAgent = () => {
                 </form>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default AddNewAgent;

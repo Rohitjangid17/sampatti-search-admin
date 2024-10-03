@@ -10,7 +10,6 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 const Agents = () => {
     const [agents, setAgents] = useState<any>([]);
 
-
     useEffect(() => {
         getAgents();
     }, []);
@@ -33,7 +32,10 @@ const Agents = () => {
         console.log(agentId);
 
         axios.delete(`https://sampatti-search-api.vercel.app/api/agents?id=${agentId}`)
-            .then(agent => alert(agent.data.message))
+            .then(agent => {
+                alert(agent.data.message);
+                getAgents();
+            })
             .catch(error => console.error(error.message));
     }
 
