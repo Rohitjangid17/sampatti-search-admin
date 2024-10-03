@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Loader from "../../../components/Loader";
 
 const Dashboard = () => {
     useEffect(() => {
@@ -185,6 +186,8 @@ const Dashboard = () => {
                     </ul>
                 </div>
             </div>
+
+            {/* <Loader isVisible={} /> */}
         </>
     );
 };

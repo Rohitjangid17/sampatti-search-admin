@@ -2,6 +2,7 @@ import { useState } from "react";
 import PageHeader from "../../../components/PageHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/Loader";
 
 const AddNewAgent = () => {
     const [name, setName] = useState<string>("");
@@ -155,6 +156,8 @@ const AddNewAgent = () => {
                     </button>
                 </form>
             </div>
+
+            <Loader />
         </>
     );
 };

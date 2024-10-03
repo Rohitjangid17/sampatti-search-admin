@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import PageHeader from "../../../components/PageHeader";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { useEffect, useState } from "react";
@@ -6,9 +6,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import Loader from "../../../components/Loader";
 
 const Agents = () => {
     const [agents, setAgents] = useState<any>([]);
+    const [isLoader, setIsLoader] = useState<boolean>(false);
 
     useEffect(() => {
         getAgents();
@@ -16,13 +18,16 @@ const Agents = () => {
 
     // get agents list
     const getAgents = () => {
+        setIsLoader(true);
         // https://sampatti-search-api.vercel.app/api/agents?page=1&limit=2
         axios.get("https://sampatti-search-api.vercel.app/api/agents?page=1&limit=100")
             .then((agents) => {
                 setAgents(agents.data.agents);
+                setIsLoader(false);
                 console.log(agents.data.agents);
             }).catch(error => {
                 setAgents([]);
+                setIsLoader(false);
                 console.error(error.message);
             });
     }
@@ -90,12 +95,13 @@ const Agents = () => {
                                     <td className="py-3 px-4 border-b">Active</td>
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex gap-x-2">
-                                            <Button className="!min-w-5 !p-0">
+                                            <button type="button">
                                                 <EditOutlinedIcon style={{ fontSize: "14px" }} />
-                                            </Button>
-                                            <Button onClick={() => deleteAgentById(agent._id)} className="!min-w-5 !p-0">
+                                            </button>
+                                            <button type="button" onClick={() => deleteAgentById(agent._id)}>
                                                 <DeleteOutlineOutlinedIcon style={{ fontSize: "14px" }} />
-                                            </Button>
+                                            </button>
+
                                         </div>
                                     </td>
                                 </tr>
@@ -103,7 +109,9 @@ const Agents = () => {
                         </tbody>
                     </table>
                 </div >
-            </div >
+            </div>
+
+            <Loader isVisible={isLoader} />
         </>
     );
 };
