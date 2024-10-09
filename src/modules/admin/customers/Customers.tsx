@@ -1,4 +1,4 @@
-import { IconButton, TableContainer, Paper, TextField, Table, TableHead, TableRow, TableCell, TableBody, MenuItem, Menu } from "@mui/material";
+import { IconButton, TableContainer, Paper, TextField, Table, TableHead, TableRow, TableCell, TableBody, MenuItem, Menu, Button } from "@mui/material";
 import PageHeader from "../../../components/PageHeader";
 import ReorderOutlinedIcon from '@mui/icons-material/ReorderOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
@@ -11,16 +11,28 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import Loader from "../../../components/Loader";
 import axios from "axios";
+import AddNewCustomerModel from "../../../shared/models/AddNewCustomerModel";
 
 const Customers = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const [isLoader, setIsLoader] = useState<boolean>(false);
     const [customers, setCustomers] = useState<any>([]);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
+        setIsLoader(true);
+        setTimeout(() => {
+            setIsLoader(false);
+        }, 1200);
+
         getCustomerList();
     }, []);
+
+    // create new customer
+    const createNewCustomer = () => {
+
+    }
 
     // get customer list
     const getCustomerList = () => {
@@ -37,14 +49,23 @@ const Customers = () => {
             });
     }
 
-
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+    // delete customer by id 
+    const deleteCustomerById = (customerId: string) => {
+        setIsLoader(true);
+        axios.delete("https://sampatti-search-api.vercel.app/api/customers?id=" + customerId)
+            .then(res => {
+                setIsLoader(false);
+                getCustomerList();
+            })
+            .catch(error => {
+                console.error(error.message);
+                setIsLoader(false);
+            });
     }
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+
+    const handleClose = () => setAnchorEl(null);
 
     return (
         <>
@@ -74,16 +95,16 @@ const Customers = () => {
                         <GridViewOutlinedIcon />
                     </IconButton>
 
-                    <Link to="/" className="ml-3 flex gap-x-2 items-center text-white bg-[#53ae77] py-2 px-4 rounded-md text-sm hover:bg-[#459f66] transition duration-200">
+                    <Button onClick={() => setIsModalOpen(true)} className="ml-3 flex gap-x-2 items-center !text-white !bg-[#53ae77] py-2 px-4 rounded-md text-sm hover:bg-[#459f66] transition duration-200">
                         <AddOutlinedIcon />
                         <span className="hidden sm:block">New Customer</span>
-                    </Link>
+                    </Button>
                 </div>
             </div>
             {/* page sub header start here */}
 
             <div className="px-4 py-3">
-                <TableContainer className="overflow-auto" component={Paper}>
+                <TableContainer className="overflow-auto calc-height" component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -136,11 +157,14 @@ const Customers = () => {
                                                 },
                                             }}
                                         >
-                                            <MenuItem className="flex items-center gap-x-3" selected={false} onClick={handleClose}>
+                                            <MenuItem selected={false} onClick={handleClose}>
                                                 <RemoveRedEyeOutlinedIcon />
                                                 <span>Preview Customer</span>
                                             </MenuItem>
-                                            <MenuItem className="flex items-center gap-x-3" selected={false} onClick={handleClose}>
+                                            <MenuItem selected={false} onClick={() => {
+                                                deleteCustomerById(customer._id);
+                                                handleClose();
+                                            }}>
                                                 <DeleteOutlineOutlinedIcon />
                                                 <span>Delete Customer</span>
                                             </MenuItem>
@@ -156,7 +180,9 @@ const Customers = () => {
                     </Table>
                 </TableContainer>
             </div>
+
             <Loader isVisible={isLoader} />
+            <AddNewCustomerModel open={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     )
 }

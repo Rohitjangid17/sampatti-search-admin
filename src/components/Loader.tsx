@@ -3,17 +3,14 @@ import { ThreeDots } from 'react-loader-spinner';
 
 const Loader = ({ isVisible }: any) => {
     useEffect(() => {
-        if (isVisible) {
-            document.body.classList.add('no-scroll');
-        } else {
-            document.body.classList.remove('no-scroll');
-        }
+        return isVisible ? document.body.classList.add('no-scroll') : document.body.classList.remove('no-scroll');
     }, [isVisible]);
 
     return (
         <>
             {isVisible && (
-                <div className='loader'>
+                <div className='loader flex flex-col'>
+                    <div className="font-cursive text-4xl font-bold text-[#1C252E]">Sampatti Search</div>
                     <ThreeDots visible={true} height="80" width="80" color="#1C252E" radius="9" ariaLabel="three-dots-loading" />
                 </div>
             )}

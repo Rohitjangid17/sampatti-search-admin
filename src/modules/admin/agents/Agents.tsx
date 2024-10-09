@@ -69,7 +69,7 @@ const Agents = () => {
             </div>
 
             <div className="py-3 px-4">
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto calc-height">
                     <table className="w-full border-gray-200 bg-white shadow-lg rounded-lg overflow-hidden">
                         <thead className="bg-white text-[#5d7186] border-b border-solid border-gray-200">
                             <tr>

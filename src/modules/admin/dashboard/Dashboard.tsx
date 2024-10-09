@@ -1,8 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../../components/Loader";
 
 const Dashboard = () => {
+    const [isLoader, setIsLoader] = useState<boolean>(false);
+
     useEffect(() => {
+        setIsLoader(true);
+        setTimeout(() => {
+            setIsLoader(false);
+        }, 1200);
+
         document.title = "Sampatti Search | Real Estate Admin Dashboard";
     }, []);
 
@@ -187,7 +194,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* <Loader isVisible={} /> */}
+            <Loader isVisible={isLoader} />
         </>
     );
 };

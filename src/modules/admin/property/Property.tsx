@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Loader from "../../../components/Loader";
 
 const Property: React.FC = () => {
     const [view, setView] = useState<'grid' | 'list'>('grid');
+    const [isLoader, setIsLoader] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsLoader(true);
+        setTimeout(() => {
+            setIsLoader(false);
+        }, 1200);
+    }, []);
 
     // Static property data
     const properties = [
@@ -82,6 +91,7 @@ const Property: React.FC = () => {
                     </div>
                 ))}
             </div>
+            <Loader isVisible={isLoader} />
         </div>
     )
 }

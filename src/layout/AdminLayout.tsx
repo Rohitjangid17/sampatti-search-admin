@@ -4,7 +4,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { useState, useEffect } from 'react';
 
-const AdminLayout = ({ children }: any) => {
+const AdminLayout = () => {
     const [isOpen, setIsOpen] = useState(window.innerWidth > 991);
     const [overlayVisible, setOverlayVisible] = useState(false);
 
@@ -29,19 +29,18 @@ const AdminLayout = ({ children }: any) => {
     useEffect(() => {
         handleResize();
         window.addEventListener('resize', handleResize);
-
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
 
     return (
-        <div className="flex h-screen relative">
+        <div className="flex flex-col h-screen">
             <Sidebar isOpen={isOpen} />
-            <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpen && window.innerWidth > 991 ? 'ml-60' : ''}`}>
+            <div className={`flex flex-col flex-grow transition-all duration-300 ${isOpen && window.innerWidth > 991 ? 'ml-60' : ''}`}>
                 <Header isOpen={isOpen} toggleSidebar={toggleSidebar} />
-                <main className="flex-1 overflow-y-auto">
-                <Outlet />
+                <main className="flex-grow overflow-y-auto">
+                    <Outlet />
                 </main>
                 {overlayVisible && window.innerWidth <= 991 && (
                     <div
