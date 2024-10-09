@@ -95,13 +95,12 @@ const Agents = () => {
                                     <td className="py-3 px-4 border-b">Active</td>
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex gap-x-2">
-                                            <button type="button">
+                                            <button type="button" >
                                                 <EditOutlinedIcon style={{ fontSize: "14px" }} />
                                             </button>
                                             <button type="button" onClick={() => deleteAgentById(agent._id)}>
                                                 <DeleteOutlineOutlinedIcon style={{ fontSize: "14px" }} />
                                             </button>
-
                                         </div>
                                     </td>
                                 </tr>

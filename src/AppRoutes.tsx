@@ -27,6 +27,7 @@ const AppRoutes = () => {
         <Route path="/property" element={isAuthenticated ? <Property /> : <Navigate to="/sign-in" replace />} />
         <Route path="/agents" element={isAuthenticated ? <Agents /> : <Navigate to="/sign-in" replace />} />
         <Route path="/add-new-agent" element={isAuthenticated ? <AddNewAgent /> : <Navigate to="/sign-in" replace />} />
+        <Route path="/update-agent/:id" element={isAuthenticated ? <AddNewAgent /> : <Navigate to="/sign-in" replace />} />
         <Route path="/customers" element={isAuthenticated ? <Customers /> : <Navigate to="/sign-in" replace />} />
         <Route path="/orders" element={isAuthenticated ? <Orders /> : <Navigate to="/sign-in" replace />} />
         <Route path="/reviews" element={isAuthenticated ? <Reviews /> : <Navigate to="/sign-in" replace />} />
