@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import Loader from "../../../components/Loader";
+import PageHeader from "../../../components/PageHeader";
+import propertySaleIcon from "../../../assets/icons/property_sale_icon.png";
+import propertyRentIcon from "../../../assets/icons/property_rent_icon.png";
 
 const Dashboard = () => {
     const [isLoader, setIsLoader] = useState<boolean>(false);
@@ -65,22 +68,55 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className="p-6 min-h-screen">
-                {/* Welcome Section */}
-                <div className="mb-6">
-                    <h1 className="text-4xl font-bold text-gray-800">Welcome Back, Admin!</h1>
-                    <p className="text-gray-600">Here’s a quick overview of your activity.</p>
-                </div>
+            <PageHeader pageTitle="Dashoard" />
 
-                {/* Metrics Overview */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                    {metrics.map((metric, index) => (
-                        <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200">
-                            <h2 className="text-xl font-semibold text-gray-700">{metric.label}</h2>
-                            <p className="text-3xl text-blue-600 font-bold">{metric.value}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-3 px-4">
+                <div className="bg-white p-4 rounded-lg shadow-md border border-solid">
+                    <div className="flex items-center justify-between gap-x-4">
+                        <div className="flex flex-col items-start gap-y-2">
+                            <p className="text-[#5d7186] font-semibold text-base">Properties for Sale</p>
+                            <h1 className="text-[#475be8] font-semibold text-xl">684</h1>
                         </div>
-                    ))}
+                        <i>
+                            <img src={propertySaleIcon} alt="property sale" />
+                        </i>
+                    </div>
                 </div>
+                <div className="bg-white p-4 rounded-lg shadow-md border border-solid">
+                    <div className="flex items-center justify-between gap-x-4">
+                        <div className="flex flex-col items-start gap-y-2">
+                            <p className="text-[#5d7186] font-semibold text-base">Properties for Rent</p>
+                            <h1 className="text-[#fd8539] font-semibold text-xl">546</h1>
+                        </div>
+                        <i>
+                            <img src={propertyRentIcon} alt="property rent" />
+                        </i>
+                    </div>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-md border border-solid">
+                    <div className="flex items-center justify-between gap-x-4">
+                        <div className="flex flex-col items-start gap-y-2">
+                            <p className="text-[#5d7186] font-semibold text-base">Total Agents</p>
+                            <h1 className="text-[#2ed480] font-semibold text-xl">2,500</h1>
+                        </div>
+                        <i>
+                            <img src={propertySaleIcon} alt="property sale" />
+                        </i>
+                    </div>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-md border border-solid">
+                    <div className="flex items-center justify-between gap-x-4">
+                        <div className="flex flex-col items-start gap-y-2">
+                            <p className="text-[#5d7186] font-semibold text-base">Total Customers</p>
+                            <h1 className="text-[#fe6d8e] font-semibold text-xl">90</h1>
+                        </div>
+                        <i>
+                            <img src={propertySaleIcon} alt="property sale" />
+                        </i>
+                    </div>
+                </div>
+            </div>
+            <div className="p-6 min-h-screen">
 
                 {/* Recent Activity Section */}
                 <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
