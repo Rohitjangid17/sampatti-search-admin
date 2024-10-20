@@ -3,9 +3,16 @@ import Loader from "../../../components/Loader";
 import PageHeader from "../../../components/PageHeader";
 import propertySaleIcon from "../../../assets/icons/property_sale_icon.png";
 import propertyRentIcon from "../../../assets/icons/property_rent_icon.png";
+import totalAgentsIcon from "../../../assets/icons/total_agents_icon.png";
+import totalCustomersIcon from "../../../assets/icons/total_customers_icon.png";
+import axios from "axios";
 
 const Dashboard = () => {
     const [isLoader, setIsLoader] = useState<boolean>(false);
+    const [totalCustomers, setTotalCustomers] = useState<number>(0);
+    const [totalAgents, setTotalAgents] = useState<number>(0);
+    const [totalSaleProperty, setTotalSaleProperty] = useState<number>(0);
+    const [totalRentProperty, setTotalRentProperty] = useState<number>(0);
 
     useEffect(() => {
         setIsLoader(true);
@@ -14,16 +21,41 @@ const Dashboard = () => {
         }, 1200);
 
         document.title = "Sampatti Search | Real Estate Admin Dashboard";
+
+        getTotalCustomers();
+        getTotalAgents();
+        getTotalPropertiesForSale();
     }, []);
 
-    // Static data
-    const metrics = [
-        { label: "Total Properties", value: 120 },
-        { label: "Total Inquiries", value: 45 },
-        { label: "Registered Users", value: 200 },
-        { label: "Properties Sold", value: 30 },
-        { label: "Total Revenue", value: "$1,200,000" },
-    ];
+    // get total customers 
+    const getTotalCustomers = () => {
+        axios.get("https://sampatti-search-api.vercel.app/api/customers")
+            .then(response => setTotalCustomers(response.data.total))
+            .catch(error => console.error(error.message));
+    }
+
+    // get total agents
+    const getTotalAgents = () => {
+        axios.get("https://sampatti-search-api.vercel.app/api/agents")
+            .then(response => setTotalAgents(response.data.total))
+            .catch(error => console.error(error.message));
+    }
+
+    // get total properties for sale 
+    const getTotalPropertiesForSale = () => {
+        axios.get("https://sampatti-search-api.vercel.app/api/properties")
+            .then(response => {
+                console.log(response.data.properties);
+
+                // Count properties for sale and rent
+                const totalSale: number = response.data.properties.filter((property: any) => property.propertyFor.includes("Sale")).length;
+                const totalRent: number = response.data.properties.filter((property: any) => property.propertyFor.includes("Rent")).length;
+
+                setTotalSaleProperty(totalSale);
+                setTotalRentProperty(totalRent);
+            })
+            .catch(error => console.error(error.message));
+    }
 
     const recentActivities = [
         { activity: "New Property Added", date: "2024-09-27", user: "John Doe" },
@@ -75,7 +107,7 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between gap-x-4">
                         <div className="flex flex-col items-start gap-y-2">
                             <p className="text-[#5d7186] font-semibold text-base">Properties for Sale</p>
-                            <h1 className="text-[#475be8] font-semibold text-xl">684</h1>
+                            <h1 className="text-[#475be8] font-semibold text-xl">{totalSaleProperty}</h1>
                         </div>
                         <i>
                             <img src={propertySaleIcon} alt="property sale" />
@@ -86,7 +118,7 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between gap-x-4">
                         <div className="flex flex-col items-start gap-y-2">
                             <p className="text-[#5d7186] font-semibold text-base">Properties for Rent</p>
-                            <h1 className="text-[#fd8539] font-semibold text-xl">546</h1>
+                            <h1 className="text-[#fd8539] font-semibold text-xl">{totalRentProperty}</h1>
                         </div>
                         <i>
                             <img src={propertyRentIcon} alt="property rent" />
@@ -97,10 +129,10 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between gap-x-4">
                         <div className="flex flex-col items-start gap-y-2">
                             <p className="text-[#5d7186] font-semibold text-base">Total Agents</p>
-                            <h1 className="text-[#2ed480] font-semibold text-xl">2,500</h1>
+                            <h1 className="text-[#2ed480] font-semibold text-xl">{totalAgents}</h1>
                         </div>
                         <i>
-                            <img src={propertySaleIcon} alt="property sale" />
+                            <img src={totalAgentsIcon} alt="total agents" />
                         </i>
                     </div>
                 </div>
@@ -108,15 +140,15 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between gap-x-4">
                         <div className="flex flex-col items-start gap-y-2">
                             <p className="text-[#5d7186] font-semibold text-base">Total Customers</p>
-                            <h1 className="text-[#fe6d8e] font-semibold text-xl">90</h1>
+                            <h1 className="text-[#fe6d8e] font-semibold text-xl">{totalCustomers}</h1>
                         </div>
                         <i>
-                            <img src={propertySaleIcon} alt="property sale" />
+                            <img src={totalCustomersIcon} alt="total customers sale" />
                         </i>
                     </div>
                 </div>
             </div>
-            <div className="p-6 min-h-screen">
+            <div className="p-4 min-h-screen">
 
                 {/* Recent Activity Section */}
                 <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
