@@ -57,46 +57,65 @@ const Dashboard = () => {
             .catch(error => console.error(error.message));
     }
 
-    const recentActivities = [
-        { activity: "New Property Added", date: "2024-09-27", user: "John Doe" },
-        { activity: "Inquiry Received", date: "2024-09-26", user: "Jane Smith" },
-        { activity: "User Registration", date: "2024-09-25", user: "Mike Johnson" },
-        { activity: "Property Sold", date: "2024-09-24", user: "Sarah Wilson" },
-        { activity: "Price Updated", date: "2024-09-23", user: "James Brown" },
-    ];
-
+    // Sample data for each section
     const topCustomers = [
-        { name: "Alice Johnson", purchases: 5 },
-        { name: "Robert Smith", purchases: 3 },
-        { name: "Emily Davis", purchases: 2 },
+        { name: "Alice Brown", purchases: 12 },
+        { name: "Bob White", purchases: 8 },
+        { name: "Charlie Green", purchases: 5 },
     ];
 
     const recentPurchasedProperties = [
-        { name: "Luxury Apartment", date: "2024-09-26", price: "$450,000" },
-        { name: "Family Home", date: "2024-09-25", price: "$320,000" },
+        { name: "Luxury 3BHK Apartment", date: "2024-10-15", price: "$15,000,000" },
+        { name: "Cozy 2BHK Apartment", date: "2024-10-14", price: "$20,000" },
+        { name: "Modern Studio Apartment", date: "2024-10-13", price: "$30,000" },
     ];
 
     const propertyInvestors = [
-        { name: "David Brown", investment: "$500,000" },
-        { name: "Sophia Wilson", investment: "$300,000" },
+        { name: "David Black", investment: "$500,000" },
+        { name: "Sophia Blue", investment: "$750,000" },
+        { name: "Michael Red", investment: "$300,000" },
     ];
 
     const weeklySales = [
-        { week: "Week 1", sales: 10 },
-        { week: "Week 2", sales: 8 },
-        { week: "Week 3", sales: 12 },
-        { week: "Week 4", sales: 15 },
+        { week: "Week 1", sales: 25 },
+        { week: "Week 2", sales: 30 },
+        { week: "Week 3", sales: 20 },
     ];
 
     const latestTransactions = [
-        { id: 1, property: "Ocean View Villa", date: "2024-09-27", amount: "$700,000" },
-        { id: 2, property: "Downtown Condo", date: "2024-09-26", amount: "$350,000" },
+        { id: 1, property: "Penthouse in Downtown", date: "2024-10-19", amount: "$2,500,000" },
+        { id: 2, property: "Family Home in Suburbs", date: "2024-10-18", amount: "$1,200,000" },
+        { id: 3, property: "Beachfront Villa", date: "2024-10-17", amount: "$3,500,000" },
     ];
 
     const recentJoinAgents = [
-        { name: "Mark Taylor", date: "2024-09-24" },
-        { name: "Lucy Green", date: "2024-09-23" },
+        { name: "Olivia Wilson", date: "2024-10-16" },
+        { name: "James Taylor", date: "2024-10-15" },
+        { name: "Isabella Martinez", date: "2024-10-14" },
     ];
+
+    // Chart data for weekly sales
+    const salesData = {
+        labels: weeklySales.map(sale => sale.week),
+        datasets: [
+            {
+                label: 'Weekly Sales',
+                data: weeklySales.map(sale => sale.sales),
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+        },
+    };
 
     return (
         <>
@@ -148,119 +167,103 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <div className="p-4 min-h-screen">
 
-                {/* Recent Activity Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Activity</h2>
-                    <table className="min-w-full text-left">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="px-4 py-2 text-gray-700">Activity</th>
-                                <th className="px-4 py-2 text-gray-700">Date</th>
-                                <th className="px-4 py-2 text-gray-700">User</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {recentActivities.map((activity, index) => (
-                                <tr key={index} className="border-b">
-                                    <td className="px-4 py-2">{activity.activity}</td>
-                                    <td className="px-4 py-2">{activity.date}</td>
-                                    <td className="px-4 py-2">{activity.user}</td>
-                                </tr>
+            <div className="grid grid-cols-12 gap-4 p-4 min-h-screen">
+                {/* Left Side (70%) */}
+                <div className="col-span-12 sm:col-span-8">
+                    {/* Top Customers Section */}
+                    <div className="bg-white rounded-lg shadow-lg p-4 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Top Customers</h2>
+                        <ul>
+                            {topCustomers.map((customer, index) => (
+                                <li key={index} className="flex justify-between border-b py-2">
+                                    <span>{customer.name}</span>
+                                    <span className="text-gray-600">{customer.purchases} Purchases</span>
+                                </li>
                             ))}
-                        </tbody>
-                    </table>
-                </div>
+                        </ul>
+                    </div>
 
-                {/* Top Customers Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Top Customers</h2>
-                    <ul>
-                        {topCustomers.map((customer, index) => (
-                            <li key={index} className="flex justify-between border-b py-2">
-                                <span>{customer.name}</span>
-                                <span className="text-gray-600">{customer.purchases} Purchases</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* Recent Purchased Properties Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Purchased Properties</h2>
-                    <ul>
-                        {recentPurchasedProperties.map((property, index) => (
-                            <li key={index} className="flex justify-between border-b py-2">
-                                <span>{property.name}</span>
-                                <span className="text-gray-600">{property.date} - {property.price}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* Property Investors Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Property Investors</h2>
-                    <ul>
-                        {propertyInvestors.map((investor, index) => (
-                            <li key={index} className="flex justify-between border-b py-2">
-                                <span>{investor.name}</span>
-                                <span className="text-gray-600">{investor.investment}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* Weekly Sales Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Weekly Sales</h2>
-                    <ul>
-                        {weeklySales.map((sale, index) => (
-                            <li key={index} className="flex justify-between border-b py-2">
-                                <span>{sale.week}</span>
-                                <span className="text-gray-600">{sale.sales} Sales</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* Latest Transactions Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Latest Transactions</h2>
-                    <table className="min-w-full text-left">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="px-4 py-2 text-gray-700">Property</th>
-                                <th className="px-4 py-2 text-gray-700">Date</th>
-                                <th className="px-4 py-2 text-gray-700">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {latestTransactions.map((transaction) => (
-                                <tr key={transaction.id} className="border-b">
-                                    <td className="px-4 py-2">{transaction.property}</td>
-                                    <td className="px-4 py-2">{transaction.date}</td>
-                                    <td className="px-4 py-2">{transaction.amount}</td>
-                                </tr>
+                    {/* Recent Purchased Properties Section */}
+                    <div className="bg-white rounded-lg shadow-lg p-4 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Purchased Properties</h2>
+                        <ul>
+                            {recentPurchasedProperties.map((property, index) => (
+                                <li key={index} className="flex justify-between border-b py-2">
+                                    <span>{property.name}</span>
+                                    <span className="text-gray-600">{property.date} - {property.price}</span>
+                                </li>
                             ))}
-                        </tbody>
-                    </table>
+                        </ul>
+                    </div>
+
+                    {/* Latest Transactions Section */}
+                    <div className="bg-white rounded-lg shadow-lg p-4 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Latest Transactions</h2>
+                        <table className="min-w-full text-left">
+                            <thead>
+                                <tr className="bg-gray-200">
+                                    <th className="px-4 py-2 text-gray-700">Property</th>
+                                    <th className="px-4 py-2 text-gray-700">Date</th>
+                                    <th className="px-4 py-2 text-gray-700">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {latestTransactions.map((transaction) => (
+                                    <tr key={transaction.id} className="border-b">
+                                        <td className="px-4 py-2">{transaction.property}</td>
+                                        <td className="px-4 py-2">{transaction.date}</td>
+                                        <td className="px-4 py-2">{transaction.amount}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                {/* Recent Join Agents Section */}
-                <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Join Agents</h2>
-                    <ul>
-                        {recentJoinAgents.map((agent, index) => (
-                            <li key={index} className="flex justify-between border-b py-2">
-                                <span>{agent.name}</span>
-                                <span className="text-gray-600">{agent.date}</span>
-                            </li>
-                        ))}
-                    </ul>
+                {/* Right Side (30%) */}
+                <div className="col-span-12 sm:col-span-4">
+                    {/* Weekly Sales Section */}
+                    <div className="bg-white rounded-lg shadow-lg p-4 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Weekly Sales</h2>
+                        <ul>
+                            {weeklySales.map((sale, index) => (
+                                <li key={index} className="flex justify-between border-b py-2">
+                                    <span>{sale.week}</span>
+                                    <span className="text-gray-600">{sale.sales} Sales</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Recent Join Agents Section */}
+                    <div className="bg-white rounded-lg shadow-lg p-4 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Join Agents</h2>
+                        <ul>
+                            {recentJoinAgents.map((agent, index) => (
+                                <li key={index} className="flex justify-between border-b py-2">
+                                    <span>{agent.name}</span>
+                                    <span className="text-gray-600">{agent.date}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Property Investors Section */}
+                    <div className="bg-white rounded-lg shadow-lg p-4 mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Property Investors</h2>
+                        <ul>
+                            {propertyInvestors.map((investor, index) => (
+                                <li key={index} className="flex justify-between border-b py-2">
+                                    <span>{investor.name}</span>
+                                    <span className="text-gray-600">{investor.investment}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
+
 
             <Loader isVisible={isLoader} />
         </>
